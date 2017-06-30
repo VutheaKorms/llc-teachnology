@@ -1,0 +1,401 @@
+
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    <title>{{ config('app.name', 'LLC') }}</title>
+
+
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+</head>
+</html>
+
+<!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
+<body ng-controller="ProductUploadCtrl" nv-file-drop="" uploader="uploader">
+
+<div class="container">
+
+
+    <div class="row">
+        <form method="POST">
+            <div class="col-md-3">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+                <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+
+            </div>
+        </form>
+        <div class="col-md-9" style="margin-bottom: 40px">
+            <h2>Uploads only images (with canvas preview)</h2>
+            <h3>The queue</h3>
+            <p>Queue length: {{ uploader.queue.length }}</p>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th ng-show="uploader.isHTML5">Size</th>
+                    <th ng-show="uploader.isHTML5">Progress</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--{{&#45;&#45;<tr ng-repeat="item in uploader.queue">&#45;&#45;}}-->
+                    <!--{{&#45;&#45;<td>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<strong>{{ item.file.name }}</strong>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;&lt;!&ndash; Image preview &ndash;&gt;&#45;&#45;}}-->
+                        <!--{{&#45;&#45;&lt;!&ndash;auto height&ndash;&gt;&#45;&#45;}}-->
+                        <!--{{&#45;&#45;&lt;!&ndash;<div ng-thumb="{ file: item.file, width: 100 }"></div>&ndash;&gt;&#45;&#45;}}-->
+                        <!--{{&#45;&#45;&lt;!&ndash;auto width&ndash;&gt;&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;&lt;!&ndash;fixed width and height &ndash;&gt;&#45;&#45;}}-->
+                        <!--{{&#45;&#45;&lt;!&ndash;<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>&ndash;&gt;&#45;&#45;}}-->
+                        <!--{{&#45;&#45;</td>&#45;&#45;}}-->
+                    <!--{{&#45;&#45;<td></td>&#45;&#45;}}-->
+                    <!--{{&#45;&#45;<td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024 }} MB</td>&#45;&#45;}}-->
+                    <!--{{&#45;&#45;<td ng-show="uploader.isHTML5">&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<div class="progress" style="margin-bottom: 0;">&#45;&#45;}}-->
+                            <!--{{&#45;&#45;<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>&#45;&#45;}}-->
+                            <!--{{&#45;&#45;</div>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;</td>&#45;&#45;}}-->
+                    <!--{{&#45;&#45;<td class="text-center">&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;</td>&#45;&#45;}}-->
+                    <!--{{&#45;&#45;<td nowrap>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">&#45;&#45;}}-->
+                            <!--{{&#45;&#45;<span class="glyphicon glyphicon-upload"></span> Upload&#45;&#45;}}-->
+                            <!--{{&#45;&#45;</button>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">&#45;&#45;}}-->
+                            <!--{{&#45;&#45;<span class="glyphicon glyphicon-ban-circle"></span> Cancel&#45;&#45;}}-->
+                            <!--{{&#45;&#45;</button>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">&#45;&#45;}}-->
+                            <!--{{&#45;&#45;<span class="glyphicon glyphicon-trash"></span> Remove&#45;&#45;}}-->
+                            <!--{{&#45;&#45;</button>&#45;&#45;}}-->
+                        <!--{{&#45;&#45;</td>&#45;&#45;}}-->
+                    <!--{{&#45;&#45;</tr>&#45;&#45;}}-->
+                </tbody>
+            </table>
+
+            <div>
+                <div>
+                    Queue progress:
+                    <div class="progress" style="">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload all
+                </button>
+                <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                </button>
+                <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove all
+                </button>
+
+                <br />
+                <button type="button" class="btn btn-danger btn-s" ng-click="save()">
+                    <span class="glyphicon glyphicon-trash"></span> Save
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+
+
+
+
+
+
+
+<!--&lt;!&ndash;<body ng-controller="ProductUploadCtrl">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<form method="POST" name="addItem" role="form" ng-submit="submit()" >&ndash;&gt;-->
+    <!--&lt;!&ndash;<input type="file">&ndash;&gt;-->
+<!--&lt;!&ndash;<button type="submit"></button>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+
+
+
+
+
+<!--&lt;!&ndash;&lt;!&ndash;<head>&ndash;&gt;&ndash;&gt;-->
+
+
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<style>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;.my-drop-zone { border: dotted 3px lightgray; }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;.nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;.another-file-over-class { border: dotted 3px green; }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;html, body { height: 100%; }&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;canvas {&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;background-color: #f3f3f3;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;box-shadow: 3px 3px 3px 0 #e3e3e3;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;border: 1px solid #c3c3c3;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;height: 100px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;margin: 6px 0 0 6px;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;}&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</style>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</head>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash; Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" &ndash;&gt;-->
+<!--<body ng-controller="ProductUploadCtrl" nv-file-drop="" uploader="uploader">-->
+
+<!--<div class="container">-->
+
+
+    <!--<div class="row">-->
+
+        <!--<div class="col-md-3">-->
+
+            <!--&lt;!&ndash;<h3>Select files</h3>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div ng-show="uploader.isHTML5">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash; 3. nv-file-over uploader="link" over-class="className" &ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="well my-drop-zone" nv-file-over="" uploader="uploader">&ndash;&gt;-->
+                    <!--&lt;!&ndash;Base drop zone&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;&lt;!&ndash; Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" &ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">&ndash;&gt;-->
+                        <!--&lt;!&ndash;Another drop zone with its own settings&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash; Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" &ndash;&gt;-->
+            <!--<input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>-->
+
+        <!--</div>-->
+
+        <!--<div class="col-md-9" style="margin-bottom: 40px">-->
+            <!--<h2>Uploads only images (with canvas preview)</h2>-->
+            <!--<h3>The queue</h3>-->
+            <!--<p>Queue length: {{ uploader.queue.length }}</p>-->
+
+            <!--<table class="table">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th width="50%">Name</th>-->
+                    <!--<th ng-show="uploader.isHTML5">Size</th>-->
+                    <!--<th ng-show="uploader.isHTML5">Progress</th>-->
+                    <!--<th>Status</th>-->
+                    <!--<th>Actions</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+
+                <!--<tbody>-->
+                <!--<tr ng-repeat="item in uploader.queue">-->
+                    <!--<td>-->
+                        <!--<strong>{{ item.file.name }}</strong>-->
+                         <!--&lt;!&ndash;Image preview&ndash;&gt;-->
+                        <!--&lt;!&ndash;auto height&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div ng-thumb="{ file: item.file, width: 100 }"></div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;auto width&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;fixed width and height&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>&ndash;&gt;-->
+                    <!--</td>-->
+                    <!--<td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>-->
+                    <!--<td ng-show="uploader.isHTML5">-->
+                        <!--<div class="progress" style="margin-bottom: 0;">-->
+                            <!--<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                    <!--<td class="text-center">-->
+                        <!--<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>-->
+                        <!--<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>-->
+                        <!--<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>-->
+                    <!--</td>-->
+                    <!--<td nowrap>-->
+                        <!--<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">-->
+                            <!--<span class="glyphicon glyphicon-upload"></span> Upload-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">-->
+                            <!--<span class="glyphicon glyphicon-ban-circle"></span> Cancel-->
+                        <!--</button>-->
+                        <!--<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">-->
+                            <!--<span class="glyphicon glyphicon-trash"></span> Remove-->
+                        <!--</button>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+
+            <!--<div>-->
+                <!--<div>-->
+                    <!--Queue progress:-->
+                    <!--<div class="progress" style="">-->
+                        <!--<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">-->
+                    <!--<span class="glyphicon glyphicon-upload"></span> Upload all-->
+                <!--</button>-->
+                <!--<button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">-->
+                    <!--<span class="glyphicon glyphicon-ban-circle"></span> Cancel all-->
+                <!--</button>-->
+                <!--<button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">-->
+                    <!--<span class="glyphicon glyphicon-trash"></span> Remove all-->
+                <!--</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-success btn-s" ng-click="save()">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="glyphicon glyphicon-upload"></span> Save&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+<!--</div>-->
+
+<!--</body>-->
+
+
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<body ng-controller="ProductCreateCtrl">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<form name="myForm">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<fieldset>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<legend>Upload on form submit</legend>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;Username:&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input type="text" name="userName" ng-model="username" size="31" required>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<i ng-show="myForm.userName.$error.required">*required</i>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<br>Photo:&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input type="file" ngf-select ng-model="picFile" name="file"&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+               <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;accept="image/*" ngf-max-size="2MB" required&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+               <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;ngf-model-invalid="errorFile">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<i ng-show="myForm.file.$error.required">*required</i><br>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<i ng-show="myForm.file.$error.maxSize">File too large&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;{{errorFile.size / 1000000|number:1}}MB: max 2M</i>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<br>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<button ng-disabled="!myForm.$valid"&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;ng-click="uploadPic(picFile)">Submit</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<span class="progress" ng-show="picFile.progress >= 0">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div style="width:{{picFile.progress}}%"&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+             <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;ng-bind="picFile.progress + '%'"></div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+      <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</span>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<span ng-show="picFile.result">Upload Successful</span>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<span class="err" ng-show="errorMsg">{{errorMsg}}</span>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;{{picFile.result}}&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</fieldset>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<br>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</body>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+
+
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div  ng-controller="ProductCreateCtrl">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<form method="POST" name="addItem" role="form" enctype="multipart/form-data">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="modal-header">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<h4 class="modal-title">Create Product</h4>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="modal-body">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="container">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="row">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;{{form.product_name}}&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<strong>Name : </strong>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input ng-model="form.product_name" type="text" placeholder="Name" name="name" class="form-control" required />&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<strong>Code : </strong>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input ng-model="form.product_code" type="text" placeholder="Code" name="code" class="form-control" required />&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<strong>Brand : </strong>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<select ng-model="selectedBrand" class="form-control" required&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;ng-options="item.id as item.name for item in brands">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<option value="">Select</option>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</select>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input ng-model="form.pro_type_id" type="text" placeholder="ProductType" name="title" class="form-control" required />&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<strong>Price : </strong>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="form-group input-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<span class="input-group-addon">$</span>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input ng-model="form.price" type="text" placeholder="Price" name="price" class="form-control" required />&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<span class="input-group-addon">.00</span>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input type="file" data-file="param.file"/>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div>param.file: {{param.file}}</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input type="file" ngf-select="onFileSelect($files)" multiple>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<strong>Category : </strong>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="form-group">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<select ng-model="selectedCategory" class="form-control" required&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;ng-options="item.id as item.name for item in productCategory">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<option value="">Select</option>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</select>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<input ng-model="form.pro_cate_id" type="text" placeholder="ProductType" name="title" class="form-control" required />&ndash;&gt;&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<strong>Description : </strong>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<div class="form-group" >&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<textarea ng-model="form.description" rows="5" class="form-control">&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</textarea>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<button type="submit" ng-disabled="addItem.$invalid" class="btn btn-primary">Save</button>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;<div ng-controller="ProductCreateCtrl">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;<form  method="POST" ng-submit="saveAdd()" enctype="multipart/form-data">&ndash;&gt;&ndash;&gt;-->
+
+    <!--&lt;!&ndash;&lt;!&ndash;Product name:&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<br />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<input type="text" name="name"/>&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<br /><br />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;Product photos (can attach more than one):&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<br />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<input type="file" name="photos[]" multiple />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<br /><br />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<input type="submit" value="Upload" />&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</form>&ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->

@@ -1,0 +1,387 @@
+<!--<div ng-controller="ProfileCtrl">-->
+    <!--<div class="row">-->
+        <!--<div class="col-lg-11">-->
+            <!--<h1 class="page-header">User Profile</h1>-->
+        <!--</div>-->
+        <!--<div class="col-lg-1">-->
+            <!--<h1 class="page-header"><button type="button" class="btn btn-default" ng-click="back();">Back</button></h1>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+    <!--</div>-->
+
+    <!--<div class="row">-->
+        <!--<div class="col-lg-12">-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">-->
+                    <!--User Profile Detail-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /.panel-heading &ndash;&gt;-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="col-lg-2">-->
+                        <!--<span><b>User Name :</b></span><br /><br />-->
+                        <!--<span><b>Email Address :</b></span><br /><br />-->
+                        <!--<span><b>Password :</b></span><br /><br />-->
+                        <!--<span><b>Date :</b></span><br /><br />-->
+                        <!--<span><b>Status :</b></span><br /><br />-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-6">-->
+                        <!--<span ng-bind="brands.name"></span><br /><br />-->
+                        <!--<span ng-bind="brands.name"></span><br /><br />-->
+                        <!--<span ng-bind="brands.description"></span><br /><br />-->
+                        <!--<span ng-bind="brands.created_at"></span><br /><br />-->
+
+                        <!--<span>-->
+                            <!--<p ng-if="brands.status == 1"><span class="label label-info">Active</span></p>-->
+                            <!--<p ng-if="brands.status == 0"><span class="label label-default">Disable</span></p>-->
+                        <!--</span>-->
+
+                    <!--</div>-->
+
+                <!--</div>-->
+                <!--&lt;!&ndash; /.panel-body &ndash;&gt;-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.panel &ndash;&gt;-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+    <!--</div>-->
+    <!--&lt;!&ndash; /.row &ndash;&gt;-->
+<!--</div>-->
+
+
+
+
+    <div ng-controller="ProfileCtrl">
+        <div class="row">
+            <div class="col-lg-11">
+                <h1 class="page-header">Profiles</h1>
+            </div>
+            <div class="col-lg-1">
+                <h1 class="page-header"><button type="button" class="btn btn-default" ng-click="back();">Back</button></h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    </div>
+
+
+    <!--<div class="row">-->
+        <!--<div class="col-lg-11">-->
+            <!--<h1 class="page-header">User Profile</h1>-->
+        <!--</div>-->
+        <!--<div class="col-lg-1">-->
+            <!--<h1 class="page-header"><button type="button" class="btn btn-default" ng-click="goBack();">Back</button></h1>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-lg-6">-->
+            <!--&lt;!&ndash;<button type="button" class="btn btn-primary" ng-click="create();">Add New Product Type</button>&ndash;&gt;-->
+            <!--<button class="btn btn-success" data-toggle="modal" data-target="#create-user">Create New</button>-->
+        <!--</div>-->
+        <!--<div class="col-lg-6">-->
+            <!--<div class="col-lg-3">-->
+                <!--<div class="col-lg-2 pull-right">-->
+
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-9">-->
+                <!--<div class="box-tools pull-right" style="display:inline-table">-->
+                    <!--<div class="input-group form-group pull-right">-->
+                        <!--<input type="text" class="form-control  ng-valid ng-dirty"-->
+                               <!--placeholder="Search" ng-change="searchDB()"-->
+                               <!--ng-model="searchText" name="table_search" title=""-->
+                               <!--tooltip="" data-original-title="Min character length is 3">-->
+                        <!--<span class="input-group-addon">Search</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<input class="form-control" placeholder="Search....">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="col-lg-12">-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">-->
+                    <!--User Profile-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /.panel-heading &ndash;&gt;-->
+                <!--<div class="panel-body">-->
+                    <!--<div class="dataTable_wrapper">-->
+                        <!--<table class="table table-striped table-bordered table-hover" id="dataTables-example">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th>No</th>-->
+                                <!--<th>Name</th>-->
+                                <!--<th>Email</th>-->
+                                <!--<th>Role</th>-->
+                                <!--<th>Password</th>-->
+                                <!--<th>Date</th>-->
+                                <!--<th>Status</th>-->
+                                <!--<th>Action</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr class="odd gradeX" dir-paginate="value in data | itemsPerPage:5" total-items="totalItems">-->
+                                <!--<td>{{ $index + 1 }}</td>-->
+                                <!--<td>{{value.name}}</td>-->
+                                <!--<td>{{value.email}}</td>-->
+                                <!--<td>{{value.role}}</td>-->
+                                <!--<td>{{value.password}}</td>-->
+                                <!--<td>{{value.created_at}}</td>-->
+                                <!--<td>-->
+                                    <!--<p ng-if="value.status == 1"><span class="label label-info">Active</span></p>-->
+                                    <!--<p ng-if="value.status == 0"><span class="label label-default">Disable</span></p>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--&lt;!&ndash; Single button &ndash;&gt;-->
+                                    <!--<div class="btn-group">-->
+                                        <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                            <!--Action <span class="caret"></span>-->
+                                        <!--</button>-->
+                                        <!--<ul class="dropdown-menu pull-right">-->
+                                            <!--<li><a ui-sref="dashboard.product-view({id: value.id})"><i class="fa fa-eye"></i> View</a></li>-->
+                                            <!--<li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" ng-click="edit(value.id)" data-target="#edit-data"><i class="fa fa-pencil"></i> Update</a></li>-->
+                                            <!--<li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" ng-click="remove(value,$index)"><i class="fa fa-trash-o"></i> Delete</a></li>-->
+                                            <!--<li style="cursor: pointer; cursor: hand;"><a data-toggle="modal" ng-click="edit(value.id)" data-target="#edit-data"><i class="fa fa-ban"></i> Disable</a></li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; /.table-responsive &ndash;&gt;-->
+                    <!--<dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)"-->
+                                             <!--template-url="backend/app/views/products/dirPagination.html">-->
+                    <!--</dir-pagination-controls>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; /.panel-body &ndash;&gt;-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.panel &ndash;&gt;-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+    <!--</div>-->
+
+    <!--<div class="modal fade" id="create-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+        <!--<div class="modal-dialog" role="document">-->
+            <!--<div class="modal-content">-->
+
+
+
+
+                <!--<div class="container">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-8 col-md-offset-2">-->
+                            <!--<div class="panel panel-default">-->
+                                <!--<div class="panel-heading">Register</div>-->
+                                <!--<div class="panel-body">-->
+                                    <!--<form class="form-horizontal" role="form" method="POST" ng-submit="saveAdd()">-->
+                                        <!--{{ csrf_field() }}-->
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label for="name" class="col-md-4 control-label">Name</label>-->
+
+                                            <!--<div class="col-md-6">-->
+                                                <!--<input id="name" type="text" ng-model="form.name" class="form-control" name="name" value="{{ old('name') }}" required autofocus>-->
+
+
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label for="email" class="col-md-4 control-label">E-Mail Address</label>-->
+
+                                            <!--<div class="col-md-6">-->
+                                                <!--<input id="email" type="email" ng-model="form.email" class="form-control" name="email" value="{{ old('email') }}" required>-->
+
+
+                                        <!--</div>-->
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label for="password" class="col-md-4 control-label">Password</label>-->
+
+                                            <!--<div class="col-md-6">-->
+                                                <!--<input id="password" type="password" ng-model="form.password" class="form-control" name="password" required>-->
+
+
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="form-group">-->
+                                            <!--<label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>-->
+
+                                            <!--<div class="col-md-6">-->
+                                                <!--<input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="form-group">-->
+                                            <!--<div class="col-md-6 col-md-offset-4">-->
+                                                <!--<button type="submit" class="btn btn-primary">-->
+                                                    <!--Register-->
+                                                <!--</button>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</form>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--&lt;!&ndash;<form method="POST" name="addItem" role="form" ng-submit="saveAdd()">&ndash;&gt;-->
+                    <!--&lt;!&ndash;{{ csrf_field() }}&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="modal-header">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<h4 class="modal-title">Create New User</h4>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="modal-body">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<strong>Name : </strong>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input ng-model="form.name" type="text" placeholder="Name" name="title" class="form-control" required />&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<strong>Email : </strong>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input ng-model="form.email" type="email" placeholder="Email" name="title" class="form-control" required />&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<strong>Password : </strong>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input ng-model="form.password" type="password" placeholder="Password" name="title" class="form-control" required />&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<strong>Confirm Password : </strong>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input type="password" placeholder="Confirm Password" name="title" class="form-control" required />&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="col-xs-12 col-sm-6 col-md-6">&ndash;&gt;-->
+
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<button type="submit" ng-disabled="addItem.$invalid" class="btn btn-primary">Save</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+    <!--&lt;!&ndash; Edit Modal &ndash;&gt;-->
+    <!--<div class="modal fade" id="edit-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+        <!--<div class="modal-dialog" role="document">-->
+            <!--<div class="modal-content">-->
+                <!--<form method="POST" name="editItem" role="form" ng-submit="saveEdit()">-->
+                    <!--<input ng-model="form.id" type="hidden" placeholder="Name" name="name" class="form-control" />-->
+                    <!--<div class="modal-header">-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+                        <!--<h4 class="modal-title" id="myModalLabel">Edit Product</h4>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<div class="container">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<strong>Name : </strong>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<input ng-model="form.product_name" type="text" placeholder="Name" name="name" class="form-control" required />-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<strong>Code : </strong>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<input ng-model="form.product_code" type="text" placeholder="Code" name="code" class="form-control" required />-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<strong>Brand : </strong>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<select ng-model="selectedBrand" class="form-control" required-->
+                                                <!--ng-options="item.id as item.name for item in brands">-->
+                                            <!--<option value="">Select</option>-->
+                                        <!--</select>-->
+                                        <!--&lt;!&ndash;<input ng-model="form.pro_type_id" type="text" placeholder="ProductType" name="title" class="form-control" required />&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<strong>Price : </strong>-->
+                                    <!--<div class="form-group input-group">-->
+                                        <!--<span class="input-group-addon">$</span>-->
+                                        <!--<input ng-model="form.price" type="text" placeholder="Price" name="price" class="form-control" required />-->
+                                        <!--<span class="input-group-addon">.00</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<strong>Category : </strong>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<select ng-model="selectedCategory" class="form-control" required-->
+                                                <!--ng-options="item.id as item.name for item in productCategory">-->
+                                            <!--<option value="">Select</option>-->
+                                        <!--</select>-->
+                                        <!--&lt;!&ndash;<input ng-model="form.pro_cate_id" type="text" placeholder="ProductType" name="title" class="form-control" required />&ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<strong>Description : </strong>-->
+                                    <!--<div class="form-group">-->
+                                   <!--<textarea ng-model="form.description" rows="5" class="form-control">-->
+                                    <!--</textarea>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                            <!--<button type="submit" ng-disabled="editItem.$invalid" class="btn btn-primary create-crud">Submit</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="modal fade" id="view-data" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+        <!--<div class="modal-dialog modal-lg" role="document">-->
+            <!--<div class="modal-content">-->
+                <!--<form method="POST" name="deleteItem" role="form">-->
+                    <!--<input ng-model="form.id" type="hidden" placeholder="Name" name="name" class="form-control" />-->
+                    <!--<div class="modal-header">-->
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+                        <!--<h4 class="modal-title">View Item</h4>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-4">-->
+                                <!--<ul class="list-group">-->
+                                    <!--<li class="list-group-item"><b>Name : </b>{{form.name}}</li>-->
+                                    <!--<li class="list-group-item"><b>Price : </b>{{form.price}}</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4">-->
+                                <!--<ul class="list-group">-->
+                                    <!--<li class="list-group-item"><b>ProductType : </b>{{selectedProductType}}</li>-->
+                                    <!--<li class="list-group-item"><b>ProductCategory : </b>{{selectedProductCategory}}</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4">-->
+                                <!--<ul class="list-group">-->
+                                    <!--<li class="list-group-item"><b>Description : </b>{{form.description}}</li>-->
+                                    <!--<li class="list-group-item"><b>Status : </b>-->
+                                        <!--<span ng-if="form.status == 0"><span class="label label-info">Active</span></span>-->
+                                        <!--<span ng-if="form.status == 1"><span class="label label-default">Disable</span></span>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
